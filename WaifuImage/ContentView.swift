@@ -18,17 +18,20 @@ struct ContentView: View {
         
         
         ScrollView{
-            LazyVGrid(columns: columns,spacing: 20) {
+            LazyVGrid(columns: columns) {
                 ForEach(harem, id: \.id) {waifu in
                     
                     let url = URL(string: waifu.url)
                     
                     AsyncImage(url: url) { image in
                         image.resizable()
-                            .frame(width: 120, height: 80, alignment: .topLeading)
+                            .aspectRatio(contentMode: .fill)
+                            
                     } placeholder: {
                         ProgressView()
                     }
+                    .frame(width: 100, height: 100)
+                    .cornerRadius(20)
 
                     
                     
@@ -39,7 +42,7 @@ struct ContentView: View {
         
             
         .onAppear {
-            WaifuViewModel.getWaifus(type: .fsw, category: .waifu, limit:10) { (waifus) in
+            WaifuViewModel.getWaifus(type: .fsw, category: .neko, limit:11) { (waifus) in
                
                 harem = waifus
                 
