@@ -42,11 +42,11 @@ struct ContentView: View {
         
             
         .onAppear {
-            WaifuViewModel.getWaifus(type: .fsw, category: .neko, limit:11) { (waifus) in
-               
+            
+            WaifuViewModel.getWaifusFsw(category:.cringe, limit: 10) { waifus in
                 harem = waifus
-                
             }
+            
         }
         
     }

@@ -11,26 +11,42 @@ import Foundation
 class WaifuViewModel{
     
     
-    
-    static func getWaifus(type:IMAGE_TYPE,category:IMAGE_CATEGORIES,limit:Int,result:@escaping ([WaifuInterable]) -> Void){
-        
+    static func getWaifusFsw(category:IMAGE_CATEGORIES_FSW,limit:Int,result:@escaping ([WaifuInterable]) -> Void){
         var haren:[WaifuInterable] = []
         
         for i in 1...limit{
             
-            ApiService.getRandomImage(type: type, category: category) { waifu in
-               
-                let newWaifu = WaifuInterable.init(id: i, url: waifu.url)
-                haren.append(newWaifu)
+            ApiService.getRandomImageFsw(category: category) { waifu in
                 
-                result(haren)
-                
+                 let newWaifu = WaifuInterable.init(id: i, url: waifu.url)
+                 haren.append(newWaifu)
+                 
+                 result(haren)
             } onFailure: { err in
                 print(err)
             }
+
             
         }
+    }
+    
+    static func getWaifusNfsw(category:IMAGE_CATEGORIES_NSFW,limit:Int,result:@escaping ([WaifuInterable]) -> Void){
+        var haren:[WaifuInterable] = []
+        
+        for i in 1...limit{
+            
+            ApiService.getRandomImageNfsw(category: category) { waifu in
+                
+                 let newWaifu = WaifuInterable.init(id: i, url: waifu.url)
+                 haren.append(newWaifu)
+                 
+                 result(haren)
+            } onFailure: { err in
+                print(err)
+            }
 
+            
+        }
     }
     
 }
