@@ -11,7 +11,7 @@ import Foundation
 class WaifuViewModel{
     
     
-    static func getWaifusFsw(category:IMAGE_CATEGORIES_FSW,limit:Int,result:@escaping ([WaifuInterable]) -> Void){
+    static func getManyWaifusFsw(category:IMAGE_CATEGORIES_FSW,limit:Int,result:@escaping ([WaifuInterable]) -> Void,onFailure:@escaping (ErrorHandler) -> Void){
         var haren:[WaifuInterable] = []
         
         for i in 1...limit{
@@ -23,14 +23,16 @@ class WaifuViewModel{
                  
                  result(haren)
             } onFailure: { err in
-                print(err)
+                
+              
+                
             }
 
             
         }
     }
     
-    static func getWaifusNfsw(category:IMAGE_CATEGORIES_NSFW,limit:Int,result:@escaping ([WaifuInterable]) -> Void){
+    static func getManyWaifusNfsw(category:IMAGE_CATEGORIES_NSFW,limit:Int,result:@escaping ([WaifuInterable]) -> Void){
         var haren:[WaifuInterable] = []
         
         for i in 1...limit{

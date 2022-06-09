@@ -43,8 +43,8 @@ struct ContentView: View {
             
         .onAppear {
             
-            WaifuViewModel.getWaifusFsw(category:.cringe, limit: 10) { waifus in
-                harem = waifus
+            WaifuViewModel.getWaifusNfsw(category: .trap, limit: 10) { waifus in
+                    harem = waifus
             }
             
         }

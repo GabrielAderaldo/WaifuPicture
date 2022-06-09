@@ -102,7 +102,6 @@ extension URLSession{
     }
     
     
-    //TODO: Fazer uma boa documentação sobre essa função
     /**
             This function do the get information in the URL.
                 - Parameter url: is the url in string
@@ -113,20 +112,23 @@ extension URLSession{
                 
                 - SUCESS Throw:  [DATA] `The data(binary) of content of the get URL`
                         
-                - FAIL Throw: `The error of any problem is possible happend in process of function, and de data wrong`
+                - FAIL Throw: `Return a dictionary content the key name "Error" and de value is a object ErrorHandle`
      
      */
-    static func httpGet(url:String,paramets:[String:String]?,typeReturn: TYPE_RETURN_URL,sucess onSucess:@escaping(Any) -> Void, failure onFailure: @escaping(Any) -> Void){
+    static func httpGet(url:String,paramets:[String:String]?,typeReturn: TYPE_RETURN_URL,sucess onSucess:@escaping(Any) -> Void, failure onFailure: @escaping([String:Any]) -> Void){
         
         let urlValid = self.shared.putParamtersInsideUrl(stringURL: url, paramets: paramets)
         
         let task = URLSession.shared.dataTask(with: urlValid) { (data, res, err) in
             
             if let err = err {
-                onFailure(err)
+                let error = ErrorHandler(errorCode: 400, descriptionError: "Url is poorly structured", nameError: "BAD_URL_ERROR", dataError: err)
+                onFailure(["Error":error])
             }
             
             guard let response = res as? HTTPURLResponse else {
+                let error = ErrorHandler(errorCode: 400, descriptionError: "Url is poorly structured", nameError: "BAD_URL_ERROR", dataError: err)
+                onFailure(["Error":error])
                 return
             }
             
@@ -143,19 +145,24 @@ extension URLSession{
                     onSucess(data)
                 case .BAD_REQUEST:
                     let data = self.shared.handleDataEncodingToData(data: data)
-                    onFailure(["data":data,"statusCode":response.statusCode])
+                    let error = ErrorHandler(errorCode: response.statusCode, descriptionError: "Url is poorly structured", nameError: "BAD_URL_ERROR", dataError: data)
+                    onFailure(["Error":error])
                 case .UNAUTHORIZED:
                     let data = self.shared.handleDataEncodingToData(data: data)
-                    onFailure(["data":data,"statusCode":response.statusCode])
+                    let error = ErrorHandler(errorCode: response.statusCode, descriptionError: "You are not authorized to access this content, try re-authenticating", nameError: "UNAUTHORIZED", dataError: data)
+                    onFailure(["Error":error])
                 case .FORBIDDEN:
                     let data = self.shared.handleDataEncodingToData(data: data)
-                    onFailure(["data":data,"statusCode":response.statusCode])
+                    let error = ErrorHandler(errorCode: response.statusCode, descriptionError: "You are not authorized to access this content", nameError: "FORBIDEN", dataError: data)
+                    onFailure(["Error":error])
                 case .NOT_FOUND:
                     let data = self.shared.handleDataEncodingToData(data: data)
-                    onFailure(["data":data,"statusCode":response.statusCode])
+                    let error = ErrorHandler(errorCode: response.statusCode, descriptionError: "The content you want to run does not exist", nameError: "NOT_FOUND", dataError: data)
+                    onFailure(["Error":error])
                 case .NOT_FOUND_STATUS:
                     let data = self.shared.handleDataEncodingToData(data: data)
-                    onFailure(["data":data,"statusCode":response.statusCode])
+                    let error = ErrorHandler(errorCode: response.statusCode, descriptionError: "Unknown server error", nameError: "NOT_FOUND_STATUS", dataError: data)
+                    onFailure(["Error":error])
                 }
                 
                 
@@ -166,19 +173,24 @@ extension URLSession{
                     onSucess(data)
                 case .BAD_REQUEST:
                     let data = self.shared.handleDataEncodingToString(data: data)
-                    onFailure(["data":data,"statusCode":response.statusCode])
+                    let error = ErrorHandler(errorCode: response.statusCode, descriptionError: "Url is poorly structured", nameError: "BAD_URL_ERROR", dataError: data)
+                    onFailure(["Error":error])
                 case .UNAUTHORIZED:
                     let data = self.shared.handleDataEncodingToString(data: data)
-                    onFailure(["data":data,"statusCode":response.statusCode])
+                    let error = ErrorHandler(errorCode: response.statusCode, descriptionError: "You are not authorized to access this content, try re-authenticating", nameError: "UNAUTHORIZED", dataError: data)
+                    onFailure(["Error":error])
                 case .FORBIDDEN:
                     let data = self.shared.handleDataEncodingToString(data: data)
-                    onFailure(["data":data,"statusCode":response.statusCode])
+                    let error = ErrorHandler(errorCode: response.statusCode, descriptionError: "You are not authorized to access this content", nameError: "FORBIDEN", dataError: data)
+                    onFailure(["Error":error])
                 case .NOT_FOUND:
                     let data = self.shared.handleDataEncodingToString(data: data)
-                    onFailure(["data":data,"statusCode":response.statusCode])
+                    let error = ErrorHandler(errorCode: response.statusCode, descriptionError: "The content you want to run does not exist", nameError: "NOT_FOUND", dataError: data)
+                    onFailure(["Error":error])
                 case .NOT_FOUND_STATUS:
                     let data = self.shared.handleDataEncodingToString(data: data)
-                    onFailure(["data":data,"statusCode":response.statusCode])
+                    let error = ErrorHandler(errorCode: response.statusCode, descriptionError: "Unknown server error", nameError: "NOT_FOUND_STATUS", dataError: data)
+                    onFailure(["Error":error])
                 }
             }
           

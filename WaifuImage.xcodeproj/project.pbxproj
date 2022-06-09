@@ -17,6 +17,7 @@
 		32E8AA25284E81CB00464409 /* ImageTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E8AA24284E81CB00464409 /* ImageTypeEnum.swift */; };
 		32E8AA28284E894D00464409 /* WaifuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E8AA27284E894D00464409 /* WaifuViewModel.swift */; };
 		32E8AA2A284E89CB00464409 /* WaifuInterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E8AA29284E89CB00464409 /* WaifuInterable.swift */; };
+		32FD9AB6285175B400A72A17 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FD9AB5285175B400A72A17 /* Error.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		32E8AA24284E81CB00464409 /* ImageTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTypeEnum.swift; sourceTree = "<group>"; };
 		32E8AA27284E894D00464409 /* WaifuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaifuViewModel.swift; sourceTree = "<group>"; };
 		32E8AA29284E89CB00464409 /* WaifuInterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaifuInterable.swift; sourceTree = "<group>"; };
+		32FD9AB5285175B400A72A17 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				32E8AA1C284E813D00464409 /* UrlSessionExtended.swift */,
+				32FD9AB5285175B400A72A17 /* Error.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -198,6 +201,7 @@
 				32E8AA28284E894D00464409 /* WaifuViewModel.swift in Sources */,
 				32E8AA2A284E89CB00464409 /* WaifuInterable.swift in Sources */,
 				32E8AA20284E815B00464409 /* WaifuModel.swift in Sources */,
+				32FD9AB6285175B400A72A17 /* Error.swift in Sources */,
 				32E8AA22284E819700464409 /* ApiService.swift in Sources */,
 				32E8AA1D284E813D00464409 /* UrlSessionExtended.swift in Sources */,
 				32E8AA0F284E802B00464409 /* ContentView.swift in Sources */,

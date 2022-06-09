@@ -114,7 +114,7 @@ class ApiService{
     }
     
     
-    static func getRandomImageFsw(category:IMAGE_CATEGORIES_FSW,onSucess:@escaping(Waifu) -> Void,onFailure:@escaping (Any) -> ()){
+    static func getRandomImageFsw(category:IMAGE_CATEGORIES_FSW,onSucess:@escaping(Waifu) -> Void,onFailure:@escaping (ErrorHandler) -> ()){
         let baseUrl = "https://api.waifu.pics/"
         let complement = ApiService().genereteImgURL(type: .fsw, categoryFws: category, categoryNfws: nil)
         
@@ -123,7 +123,11 @@ class ApiService{
         URLSession.httpGet(url: url, paramets: nil, typeReturn: .data) { data in
             
             
-            guard let data = data as? Data else{ return }
+            guard let data = data as? Data else{
+                let error = ErrorHandler(errorCode: 1000, descriptionError: "Fail to convert data", nameError: "FAIL_CONVERT", dataError: data)
+                onFailure(error)
+                return
+            }
            
             
                 do{
@@ -131,12 +135,14 @@ class ApiService{
                     onSucess(imgDecode)
                     
                 }catch let err{
-                    onFailure(err)
+                    let error = ErrorHandler(errorCode: 1444, descriptionError: "Error to decode Json to Waifu model", nameError: "FAIL_CONVERT", dataError: err)
+                    onFailure(error)
                 }
             
             
         } failure: { err in
-            onFailure(err)
+            let error = ErrorHandler(errorCode: 1404, descriptionError: "Unknown error", nameError: "UNKNOWN_ERROR", dataError: err)
+            onFailure(error)
         }
     }
     
@@ -159,12 +165,14 @@ class ApiService{
                     onSucess(imgDecode)
                     
                 }catch let err{
-                    onFailure(err)
+                    let error = ErrorHandler(errorCode: 1444, descriptionError: "Error to decode Json to Waifu model", nameError: "FAIL_CONVERT", dataError: err)
+                    onFailure(error)
                 }
             
             
         } failure: { err in
-            onFailure(err)
+            let error = ErrorHandler(errorCode: 1404, descriptionError: "Unknown error", nameError: "UNKNOWN_ERROR", dataError: err)
+            onFailure(error)
         }
     }
     
